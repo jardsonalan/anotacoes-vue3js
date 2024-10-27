@@ -1,16 +1,23 @@
 <script setup lang="ts">
-
-</script>
+import Cabecalho from './components/OCabecalho.vue';
+</script> <!-- Toda lógica: JavaScript ou TypeScript -->
 
 <template>
+  <NavBar />
   <header>
-    <div class="wrapper">
-    </div>
+    <Cabecalho />
   </header>
-</template>
+</template> <!-- Camada de visualização: HTML -->
 
-<style scoped>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 header {
   line-height: 1.5;
 }
-</style>
+</style> <!-- Camada de estilo: CSS -->
