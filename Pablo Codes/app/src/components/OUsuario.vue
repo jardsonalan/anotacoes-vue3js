@@ -2,7 +2,8 @@
 import { 
     ref,
     onMounted,
-    /* reactive */
+    /* reactive, */
+    computed
 } from 'vue';
 
 // Ref: específico para tipos primitivos: string, number, boolean
@@ -41,12 +42,12 @@ import {
 const pessoa = ref({});
 
 onMounted(async ()=>{
-    pessoa.value = await buscaInformacoes();
+    pessoa.value = await buscaInformacoes(1);
 }); /* Montagem | Após montagem */
 
 // Consumindo API
-const buscaInformacoes = async () => {
-    const req = await fetch('https://reqres.in/api/users/1');
+const buscaInformacoes = async (codigo:number) => {
+    const req = await fetch(`https://reqres.in/api/users/${codigo}`);
     const json = await req.json();
     return json.data;
 };
@@ -66,6 +67,17 @@ const buscaInformacoes = async () => {
 // onUnmounted(()=>{
 //     console.log('onUnmounted');
 // }); /* Desmontagem | Após desmontagem */
+
+// Computed
+const codigoUsuario = ref(0);
+const habilitaBotao = computed(() => codigoUsuario.value > 0);
+const pesquisaInformacoes = async () => {
+    pessoa.value = await buscaInformacoes(codigoUsuario.value);
+};
+const nomeCompleto = computed(() => `${pessoa.value.first_name} ${pessoa.value.last_name}`
+);
+const email = computed(() => `${pessoa.value.email}`);
+const avatar = computed(() => `${pessoa.value.avatar}`);
 
 </script>
 
@@ -87,10 +99,20 @@ const buscaInformacoes = async () => {
 </template> -->
 
 <template>
+    <form class="formulario">
+        <label for="codigoUsuario">Código Usuário:</label><br>
+        <input 
+            type="text"
+            id="codigoUsuario"
+            name="codigoUsuario"
+            v-model="codigoUsuario"
+        ><br>
+    </form>
+    <button class="botao" v-bind:disabled="!habilitaBotao" v-on:click="pesquisaInformacoes()">Buscar</button>
     <div class="perfil">
-        <img v-bind:src = "pessoa.avatar" alt="Perfil">
-        <strong>{{ pessoa.first_name + pessoa.last_name }}</strong>
-        <span>{{ pessoa.email }}</span>
+        <img v-bind:src = "avatar" alt="Perfil">
+        <strong>{{ nomeCompleto }}</strong>
+        <span>{{ email }}</span>
     </div>
 </template>
 
@@ -105,7 +127,7 @@ const buscaInformacoes = async () => {
         background-color: darkcyan;
     }
 
-    #nome, #dataNascimento {
+    #nome, #dataNascimento, #codigoUsuario {
         margin: 10px 0;
         width: 100%;
     }
@@ -120,9 +142,16 @@ const buscaInformacoes = async () => {
         cursor: pointer;
     }
 
-    .botao:hover {
-        background-color: rgb(182, 147, 147);
+    button:disabled, button[disabled] {
+        border: 1px solid #999;
+        background-color: #ccc;
+        color: #666;
+        cursor: default;
     }
+
+    /* .botao:hover {
+        background-color: rgb(182, 147, 147);
+    } */
 
     .perfil {
         width: 150px;
