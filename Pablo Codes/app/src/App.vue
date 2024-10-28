@@ -1,12 +1,18 @@
 <script setup lang="ts">
 import Cabecalho from './components/OCabecalho.vue';
+import Usuario from './components/OUsuario.vue';
 </script> <!-- Toda lógica: JavaScript ou TypeScript -->
 
 <template>
   <NavBar />
+
   <header>
     <Cabecalho />
   </header>
+
+  <main>
+    <Usuario />
+  </main>
 </template> <!-- Camada de visualização: HTML -->
 
 <style>
