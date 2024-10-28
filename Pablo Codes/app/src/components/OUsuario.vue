@@ -4,7 +4,7 @@ import {
     /* onMounted, */
     /* reactive, */
     computed,
-    /* watch, */
+    watch,
     watchEffect
 } from 'vue';
 
@@ -82,13 +82,11 @@ const email = computed(() => `${pessoa.value.email}`);
 const avatar = computed(() => `${pessoa.value.avatar}`);
 
 // Watch
-// watch(codigoUsuario, (novo, antigo) => {
-//     if (novo <= 0) {
-//         alert('Código inválido');
-//     } else {
-//         alert(antigo);
-//     }
-// });
+watch(codigoUsuario, (novo) => {
+    if (novo <= 0) {
+        codigoUsuario.value = 0;
+    }
+});
 
 // WatchEffect
 watchEffect(async ()=>pesquisaInformacoes());
@@ -113,8 +111,10 @@ watchEffect(async ()=>pesquisaInformacoes());
 </template> -->
 
 <template>
-    <form class="formulario">
+    <!-- v-on: serve para disparar eventos -->
+    <form class="formulario" v-on:submit.prevent>
         <label for="codigoUsuario">Código Usuário:</label><br>
+        <!-- v-model: atualiza os dados e fornece o relacionamento entre o template (HTML) e a entrada de dados -->
         <input 
             type="text"
             id="codigoUsuario"
@@ -124,6 +124,7 @@ watchEffect(async ()=>pesquisaInformacoes());
     </form>
     <!-- <button class="botao" v-bind:disabled="!habilitaBotao" v-on:click="pesquisaInformacoes()">Buscar</button> -->
     <div class="perfil">
+        <!-- v-bind: serve para fazer o bind de um atributo ou propriedade -->
         <img v-bind:src = "avatar" alt="Perfil">
         <strong>{{ nomeCompleto }}</strong>
         <span>{{ email }}</span>

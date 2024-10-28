@@ -1,17 +1,20 @@
 <script setup lang="ts">
 import Cabecalho from './components/OCabecalho.vue';
-import Usuario from './components/OUsuario.vue';
+// import Usuario from './components/OUsuario.vue';
+import ListaUsuario from './components/ListaUsuario.vue';
 </script> <!-- Toda lógica: JavaScript ou TypeScript -->
 
 <template>
-  <NavBar />
+  <!-- v-once: serve para renderizar uma única vez um elemento/componente -->
+  <NavBar v-once/>
 
   <header>
     <Cabecalho />
   </header>
 
   <main>
-    <Usuario />
+    <!-- <Usuario /> -->
+    <ListaUsuario />
   </main>
 </template> <!-- Camada de visualização: HTML -->
 
