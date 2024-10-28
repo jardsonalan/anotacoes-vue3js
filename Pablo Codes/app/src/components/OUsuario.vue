@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { 
     ref,
-    onMounted,
+    /* onMounted, */
     /* reactive, */
-    computed
+    computed,
+    /* watch, */
+    watchEffect
 } from 'vue';
 
 // Ref: específico para tipos primitivos: string, number, boolean
@@ -41,9 +43,9 @@ import {
 
 const pessoa = ref({});
 
-onMounted(async ()=>{
-    pessoa.value = await buscaInformacoes(1);
-}); /* Montagem | Após montagem */
+// onMounted(async ()=>{
+//     pessoa.value = await buscaInformacoes(1);
+// }); /* Montagem | Após montagem */
 
 // Consumindo API
 const buscaInformacoes = async (codigo:number) => {
@@ -70,14 +72,26 @@ const buscaInformacoes = async (codigo:number) => {
 
 // Computed
 const codigoUsuario = ref(0);
-const habilitaBotao = computed(() => codigoUsuario.value > 0);
+// const habilitaBotao = computed(() => codigoUsuario.value > 0);
 const pesquisaInformacoes = async () => {
-    pessoa.value = await buscaInformacoes(codigoUsuario.value);
+    pessoa.value = await buscaInformacoes(codigoUsuario.value || 1);
 };
 const nomeCompleto = computed(() => `${pessoa.value.first_name} ${pessoa.value.last_name}`
 );
 const email = computed(() => `${pessoa.value.email}`);
 const avatar = computed(() => `${pessoa.value.avatar}`);
+
+// Watch
+// watch(codigoUsuario, (novo, antigo) => {
+//     if (novo <= 0) {
+//         alert('Código inválido');
+//     } else {
+//         alert(antigo);
+//     }
+// });
+
+// WatchEffect
+watchEffect(async ()=>pesquisaInformacoes());
 
 </script>
 
@@ -108,7 +122,7 @@ const avatar = computed(() => `${pessoa.value.avatar}`);
             v-model="codigoUsuario"
         ><br>
     </form>
-    <button class="botao" v-bind:disabled="!habilitaBotao" v-on:click="pesquisaInformacoes()">Buscar</button>
+    <!-- <button class="botao" v-bind:disabled="!habilitaBotao" v-on:click="pesquisaInformacoes()">Buscar</button> -->
     <div class="perfil">
         <img v-bind:src = "avatar" alt="Perfil">
         <strong>{{ nomeCompleto }}</strong>
