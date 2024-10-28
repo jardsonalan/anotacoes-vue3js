@@ -15,6 +15,15 @@ const buscaInformacoes = async () => {
 onMounted(async () => {
     pessoas.value = await buscaInformacoes();
 });
+
+// Diretiva personalizada: Local
+// const vEmail = {
+//     created(el, biding) {
+//         // el.style.color = 'blue';
+//         // console.log(el.innerText);
+//         el.innerHTML = `<a href="mailto:${biding.value}">${biding.value}</a>`;
+//     }
+// };
 </script>
 
 <template>
@@ -28,7 +37,7 @@ onMounted(async () => {
             <h3 style="color: darkgoldenrod;" v-else>Operacional</h3>
             <img v-bind:src = "pessoa.avatar" alt="Perfil">
             <strong>{{ pessoa.first_name + pessoa.last_name }}</strong>
-            <span style="font-size: 12px;">{{ pessoa.email }}</span>
+            <span style="font-size: 12px;" v-email="pessoa.email"></span>
         </div>
     </div>
 
