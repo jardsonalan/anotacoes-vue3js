@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { 
-    ref,
+    /* ref, */
     /* onMounted, */
     /* reactive, */
-    computed,
-    watch,
-    watchEffect
+    /* computed, */
+    /* watch, */
+    /* watchEffect */
 } from 'vue';
 
 // Ref: específico para tipos primitivos: string, number, boolean
@@ -41,18 +41,18 @@ import {
 //     console.log('onBeforeMount');
 // }); /* Antes da montagem */
 
-const pessoa = ref({});
+// const pessoa = ref({});
 
 // onMounted(async ()=>{
 //     pessoa.value = await buscaInformacoes(1);
 // }); /* Montagem | Após montagem */
 
 // Consumindo API
-const buscaInformacoes = async (codigo:number) => {
-    const req = await fetch(`https://reqres.in/api/users/${codigo}`);
-    const json = await req.json();
-    return json.data;
-};
+// const buscaInformacoes = async (codigo:number) => {
+//     const req = await fetch(`https://reqres.in/api/users/${codigo}`);
+//     const json = await req.json();
+//     return json.data;
+// };
 
 // onBeforeUpdate(()=>{
 //     console.log('onBeforeUpdate');
@@ -71,26 +71,64 @@ const buscaInformacoes = async (codigo:number) => {
 // }); /* Desmontagem | Após desmontagem */
 
 // Computed
-const codigoUsuario = ref(0);
+// const codigoUsuario = ref(0);
 // const habilitaBotao = computed(() => codigoUsuario.value > 0);
-const pesquisaInformacoes = async () => {
-    pessoa.value = await buscaInformacoes(codigoUsuario.value || 1);
-};
-const nomeCompleto = computed(() => `${pessoa.value.first_name} ${pessoa.value.last_name}`
-);
-const email = computed(() => `${pessoa.value.email}`);
-const avatar = computed(() => `${pessoa.value.avatar}`);
+// const pesquisaInformacoes = async () => {
+//     pessoa.value = await buscaInformacoes(codigoUsuario.value || 1);
+// };
+// const nomeCompleto = computed(() => `${pessoa.value.first_name} ${pessoa.value.last_name}`
+// );
+// const email = computed(() => `${pessoa.value.email}`);
+// const avatar = computed(() => `${pessoa.value.avatar}`);
 
 // Watch
-watch(codigoUsuario, (novo) => {
-    if (novo <= 0) {
-        codigoUsuario.value = 0;
+// watch(codigoUsuario, (novo) => {
+//     if (novo <= 0) {
+//         codigoUsuario.value = 0;
+//     }
+// });
+
+// WatchEffect
+// watchEffect(async ()=>pesquisaInformacoes());
+
+// Props
+// 1° Forma
+defineProps({
+    pessoa: {
+        type: Object,
+        // type: String,
+        // type: Number,
+        // type: Boolean,
+        // type: Array,
+        // type: Object,
+        // type: Date,
+        // type: Function,
+        // type: Symbol,
+        required: true, // Informa que a prop é obrigatória
+        default: () => ({
+            id: 0,
+            first_name: '',
+            last_name: '',
+            avatar: '',
+            email: '',
+        }),
     }
 });
 
-// WatchEffect
-watchEffect(async ()=>pesquisaInformacoes());
+// 2° Forma
+// defineProps({
+//     pessoa: Object,
+// });
 
+// 3° Forma
+// defineProps({
+//     avatar: String,
+//     first_name: String,
+//     last_name: String,
+//     email: String
+// });
+// const nomeCompleto = computed(() => `${props.first_name} ${props.last_name}`
+// );
 </script>
 
 <!-- <template>
@@ -112,35 +150,35 @@ watchEffect(async ()=>pesquisaInformacoes());
 
 <template>
     <!-- v-on: serve para disparar eventos -->
-    <form class="formulario" v-on:submit.prevent>
+    <!-- v-model: atualiza os dados e fornece o relacionamento entre o template (HTML) e a entrada de dados -->
+    <!-- v-bind: serve para fazer o bind de um atributo ou propriedade -->
+    <!-- <form class="formulario" v-on:submit.prevent>
         <label for="codigoUsuario">Código Usuário:</label><br>
-        <!-- v-model: atualiza os dados e fornece o relacionamento entre o template (HTML) e a entrada de dados -->
         <input 
             type="text"
             id="codigoUsuario"
             name="codigoUsuario"
             v-model="codigoUsuario"
         ><br>
-    </form>
+    </form> -->
     <!-- <button class="botao" v-bind:disabled="!habilitaBotao" v-on:click="pesquisaInformacoes()">Buscar</button> -->
     <div class="perfil">
-        <!-- v-bind: serve para fazer o bind de um atributo ou propriedade -->
-        <img v-bind:src = "avatar" alt="Perfil">
-        <strong>{{ nomeCompleto }}</strong>
-        <span>{{ email }}</span>
+        <img v-bind:src = "pessoa.avatar" alt="Perfil">
+        <strong>{{ pessoa.first_name + pessoa.last_name }}</strong>
+        <span>{{ pessoa.email }}</span>
     </div>
 </template>
 
 <style scoped>
-    * {
+    /* * {
         font-size: 1.2em;
-    }
-    .formulario {
+    } */
+    /* .formulario {
         margin: 0 auto;
         padding: 5px;
         width: 400px;
         background-color: darkcyan;
-    }
+    } */
 
     #nome, #dataNascimento, #codigoUsuario {
         margin: 10px 0;

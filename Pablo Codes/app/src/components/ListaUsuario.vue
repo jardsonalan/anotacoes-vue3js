@@ -3,6 +3,7 @@ import {
     ref,
     onMounted
 } from 'vue';
+import Usuario from './OUsuario.vue';
 
 const pessoas = ref([]);
 
@@ -31,14 +32,29 @@ onMounted(async () => {
     <div class="pessoas">
         <!-- v-for: serve para renderizar uma lista de itens em uma Array -->
         <!-- :key="": pode receber tanto o id, quanto o index -->
-        <div class="perfil" v-for="pessoa in pessoas" :key="pessoa.id">
+        <!-- <div class="perfil" v-for="pessoa in pessoas" :key="pessoa.id">
             <h3 style="color: blue;" v-if="pessoa.first_name === 'George'">Gerente</h3>
             <h3 style="color: green;" v-else-if="pessoa.first_name === 'Byron'">Supervisor(a)</h3>
             <h3 style="color: darkgoldenrod;" v-else>Operacional</h3>
             <img v-bind:src = "pessoa.avatar" alt="Perfil">
             <strong>{{ pessoa.first_name + pessoa.last_name }}</strong>
             <span style="font-size: 12px;" v-email="pessoa.email"></span>
-        </div>
+        </div> -->
+
+        <!-- Props - propriedades passadas do componente pai -->
+        <!-- <Usuario 
+            first_name="Jardson" 
+            last_name="Alan"
+            avatar="./caminho"
+            email="email@email.com"
+        /> -->
+        
+        <!-- Props - Recebendo valores de API -->
+        <Usuario 
+            v-for="pessoa in pessoas" 
+            :key="pessoa.id"
+            v-bind:pessoa="pessoa"
+        />
     </div>
 
 </template>
