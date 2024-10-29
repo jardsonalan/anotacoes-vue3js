@@ -7,6 +7,7 @@ import {
     /* watch, */
     /* watchEffect */
 } from 'vue';
+import Aviso from './OAviso.vue';
 
 // Ref: específico para tipos primitivos: string, number, boolean
 // const nome = ref('Jardson Alan');
@@ -178,6 +179,7 @@ const enviaEmit = (id) => {
         <!-- Emit: 2° Forma -->
         <button class="botao" v-on:click="enviaEmit(pessoa.id)">{{ !selecao ? 'Selecionar' : 'Desmarcar' }}</button>
     </div>
+    <Aviso />
 </template>
 
 <style scoped>

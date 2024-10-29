@@ -5,10 +5,12 @@ import {
     watchEffect
 } from 'vue';
 import Usuario from './OUsuario.vue';
+import { provide } from 'vue';
 
 const pessoas = ref([]);
 const idSelecao = ref([]);
 const pessoasSelecionadas = ref([]);
+const aviso = 'Em caso de dúvidas contate o suporte.';
 
 const buscaInformacoes = async () => {
     const req = await fetch(`https://reqres.in/api/users?page=2`);
@@ -40,10 +42,12 @@ const adicionaSelecao = (evt) => {
 watchEffect(() => {
     pessoasSelecionadas.value = pessoas.value.filter(x => idSelecionado(x.id));
 });
-
 const idSelecionado = (id) => {
     return idSelecao.value.includes(id);
 };
+
+// Provide
+provide('aviso', aviso);
 </script>
 
 <template>
