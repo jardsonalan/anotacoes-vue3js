@@ -112,7 +112,8 @@ defineProps({
             avatar: '',
             email: '',
         }),
-    }
+    },
+    selecao: Boolean,
 });
 
 // 2° Forma
@@ -129,6 +130,12 @@ defineProps({
 // });
 // const nomeCompleto = computed(() => `${props.first_name} ${props.last_name}`
 // );
+
+// Emit
+const emit = defineEmits(['selecao']); // passa como argumento um Array com os nomes dos eventos personalizados que o componente pode emitir
+const enviaEmit = (id) => {
+    emit('selecao', id);
+};
 </script>
 
 <!-- <template>
@@ -166,6 +173,10 @@ defineProps({
         <img v-bind:src = "pessoa.avatar" alt="Perfil">
         <strong>{{ pessoa.first_name + pessoa.last_name }}</strong>
         <span>{{ pessoa.email }}</span>
+        <!-- Emit: 1° Forma -->
+        <!-- <button class="botao" v-on:click="$emit('selecao', pessoa.id)">Selecionar</button> -->
+        <!-- Emit: 2° Forma -->
+        <button class="botao" v-on:click="enviaEmit(pessoa.id)">{{ !selecao ? 'Selecionar' : 'Desmarcar' }}</button>
     </div>
 </template>
 

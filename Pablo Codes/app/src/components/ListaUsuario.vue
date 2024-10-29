@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { 
     ref,
-    onMounted
+    onMounted,
+    watchEffect
 } from 'vue';
 import Usuario from './OUsuario.vue';
 
 const pessoas = ref([]);
+const idSelecao = ref([]);
+const pessoasSelecionadas = ref([]);
 
 const buscaInformacoes = async () => {
     const req = await fetch(`https://reqres.in/api/users?page=2`);
@@ -25,6 +28,22 @@ onMounted(async () => {
 //         el.innerHTML = `<a href="mailto:${biding.value}">${biding.value}</a>`;
 //     }
 // };
+
+// Emit
+const adicionaSelecao = (evt) => {
+    if (idSelecionado(evt)) {
+        idSelecao.value = idSelecao.value.filter(x => x !== evt);
+        return;
+    }
+    idSelecao.value.push(evt);
+};
+watchEffect(() => {
+    pessoasSelecionadas.value = pessoas.value.filter(x => idSelecionado(x.id));
+});
+
+const idSelecionado = (id) => {
+    return idSelecao.value.includes(id);
+};
 </script>
 
 <template>
@@ -48,18 +67,38 @@ onMounted(async () => {
             avatar="./caminho"
             email="email@email.com"
         /> -->
-        
+
         <!-- Props - Recebendo valores de API -->
         <Usuario 
-            v-for="pessoa in pessoas" 
-            :key="pessoa.id"
-            v-bind:pessoa="pessoa"
+        v-for="pessoa in pessoas" 
+        :key="pessoa.id"
+        v-bind:pessoa="pessoa"
+        v-on:selecao="adicionaSelecao"
+        v-bind:selecao="idSelecionado(pessoa.id)"
         />
+        <div class="selecionadas">
+            <span v-for="ps in pessoasSelecionadas" :key="ps.id" class="card">{{ ps.first_name }}</span>
+        </div>
     </div>
 
 </template>
 
 <style scoped>
+    .selecionadas {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin: 0 auto;
+    }
+
+    .selecionadas > span {
+        background: #6fd6d6;
+        padding: 5px;
+        font-size: 0.785em;
+        border-radius: 5px;
+    }
+
     .perfil {
         width: 150px;
         text-align: center;
