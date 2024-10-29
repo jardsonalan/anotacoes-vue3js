@@ -1,26 +1,34 @@
 <script setup lang="ts">
 import { 
     ref,
-    onMounted,
-    watchEffect
+    /* onMounted, */
+    /* watchEffect, */
+    computed
 } from 'vue';
 import Usuario from './OUsuario.vue';
 import { provide } from 'vue';
+import { useFetch } from '@/composables/fetch';
 
-const pessoas = ref([]);
+const {
+    data: pessoas,
+    erro,
+    carregando
+} = useFetch(`https://reqres.in/api/users?page=2`);
+
+// const pessoas = ref([]);
 const idSelecao = ref([]);
-const pessoasSelecionadas = ref([]);
+// const pessoasSelecionadas = ref([]);
 const aviso = 'Em caso de dúvidas contate o suporte.';
 
-const buscaInformacoes = async () => {
-    const req = await fetch(`https://reqres.in/api/users?page=2`);
-    const json = await req.json();
-    return json.data;
-};
+// const buscaInformacoes = async () => {
+//     const req = await fetch(`https://reqres.in/api/users?page=2`);
+//     const json = await req.json();
+//     return json.data;
+// };
 
-onMounted(async () => {
-    pessoas.value = await buscaInformacoes();
-});
+// onMounted(async () => {
+//     pessoas.value = await buscaInformacoes();
+// });
 
 // Diretiva personalizada: Local
 // const vEmail = {
@@ -39,8 +47,11 @@ const adicionaSelecao = (evt) => {
     }
     idSelecao.value.push(evt);
 };
-watchEffect(() => {
-    pessoasSelecionadas.value = pessoas.value.filter(x => idSelecionado(x.id));
+const pessoasSelecionadas = computed(() => {
+    if (!pessoas.value) {
+        return [];
+    }
+    return pessoas.value.filter((x) => idSelecionado(x.id));
 });
 const idSelecionado = (id) => {
     return idSelecao.value.includes(id);
@@ -51,8 +62,10 @@ provide('aviso', aviso);
 </script>
 
 <template>
-    
-    <div class="pessoas">
+    <div v-if="carregando">
+        <h3>Carregando...</h3>
+    </div>
+    <div class="pessoas" v-else>
         <!-- v-for: serve para renderizar uma lista de itens em uma Array -->
         <!-- :key="": pode receber tanto o id, quanto o index -->
         <!-- <div class="perfil" v-for="pessoa in pessoas" :key="pessoa.id">
@@ -74,15 +87,19 @@ provide('aviso', aviso);
 
         <!-- Props - Recebendo valores de API -->
         <Usuario 
-        v-for="pessoa in pessoas" 
-        :key="pessoa.id"
-        v-bind:pessoa="pessoa"
-        v-on:selecao="adicionaSelecao"
-        v-bind:selecao="idSelecionado(pessoa.id)"
+            v-if='!erro'
+            v-for="pessoa in pessoas" 
+            :key="pessoa.id"
+            v-bind:pessoa="pessoa"
+            v-on:selecao="adicionaSelecao"
+            v-bind:selecao="idSelecionado(pessoa.id)"
         />
-        <div class="selecionadas">
-            <span v-for="ps in pessoasSelecionadas" :key="ps.id" class="card">{{ ps.first_name }}</span>
+        <div v-else>
+           {{ erro }} 
         </div>
+    </div>
+    <div class="selecionadas">
+        <span v-for="ps in pessoasSelecionadas" :key="ps.id" class="card">{{ ps.first_name }}</span>
     </div>
 
 </template>
