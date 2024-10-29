@@ -29,4 +29,14 @@ import ListaUsuario from './components/ListaUsuario.vue';
 header {
   line-height: 1.5;
 }
+
+/* VueUse - useDark */
+[color-scheme='dark'] {
+    background-color: black;
+    color: white;
+}
+[color-scheme='light'] {
+    background-color: #eee;
+    color:#111;
+}
 </style> <!-- Camada de estilo: CSS -->
