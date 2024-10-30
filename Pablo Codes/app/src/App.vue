@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// import Cabecalho from './components/OCabecalho.vue'
+import Cabecalho from './components/OCabecalho.vue'
 // import Usuario from './components/OUsuario.vue';
 // import ListaUsuario from './components/ListaUsuario.vue';
 </script>

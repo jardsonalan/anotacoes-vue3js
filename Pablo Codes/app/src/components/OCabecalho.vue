@@ -3,6 +3,12 @@
 import { computed } from 'vue'
 import { useDark, useToggle, useFullscreen, useMediaQuery } from '@vueuse/core'
 import { UseFullscreen } from '@vueuse/components'
+import { useLogin } from '@/stores/login';
+import { storeToRefs } from 'pinia';
+
+// Pinia - Composition API
+const store = useLogin();
+const { usuarioLogado, logado } = storeToRefs(store);
 
 // const nome:string = 'Jardson';
 // const subtitulo:string = '<p style="color: silver;">Tutoriais Vue</p>';
@@ -39,7 +45,7 @@ const tipoTela = computed(() => (isLargeScreen.value ? 'Desktop' : 'Mobile'))
   <UseFullscreen v-slot="{ toggle }">
     {{ tipoTela }}
     <div>
-      <h1 class="titulo">Jardson</h1>
+      <h1 class="titulo" v-if="logado">Bem-vindo(a) {{ usuarioLogado }}</h1>
       <!-- <span v-html="subtitulo"></span> -->
       <!-- v-html: serve para renderizar uma string como objeto HTML -->
       <!-- <span v-text="subtitulo"></span> -->

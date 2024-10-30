@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import { useCargos } from '@/stores/cargos';
+import { storeToRefs } from 'pinia';
+
+// Pinia - Composition API
+const store = useCargos();
+const { totalCargos } = storeToRefs(store); // Tranforma a store em reativo
 
 const menus = [
     { id: 1, nome: 'Home', path: '/' },
@@ -11,6 +17,7 @@ const menus = [
 <template>
     <nav>
         <span>Tutorial Vue</span>
+        Total cargos: {{ totalCargos }}
         <ul>
             <!-- v-for: serve para renderizar uma lista de itens em uma Array -->
             <!-- :key="": pode receber tanto o id, quanto o index -->
