@@ -3,7 +3,7 @@ import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
-import NavBar from './components/NavBar.vue';
+import NavBar from './components/NavBar.vue'
 
 const app = createApp(App)
 
@@ -12,11 +12,11 @@ app.use(router)
 app.component('NavBar', NavBar) // Componente global
 // Diretiva personalizada: Global
 app.directive('email', {
-    created(el, biding) {
-        // el.style.color = 'blue';
-        // console.log(el.innerText);
-        el.innerHTML = `<a href="mailto:${biding.value}">${biding.value}</a>`;
-    }
+  created(el, biding) {
+    // el.style.color = 'blue';
+    // console.log(el.innerText);
+    el.innerHTML = `<a href="mailto:${biding.value}">${biding.value}</a>`
+  },
 })
 
 app.mount('#app')

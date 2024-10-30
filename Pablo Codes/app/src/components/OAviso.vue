@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { inject } from 'vue';
+import { inject } from 'vue'
 
 // Inject
-const aviso = inject('aviso');
+const aviso = inject('aviso')
 </script>
 
 <template>
-    <div class="aviso">
-        {{ aviso }}
-    </div>
+  <div class="aviso">
+    {{ aviso }}
+  </div>
 </template>
 
 <style scoped>
 .aviso {
-    font-size: 0.575em;
-    text-align: center;
+  font-size: 0.575em;
+  text-align: center;
 }
 </style>

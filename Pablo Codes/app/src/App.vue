@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import Cabecalho from './components/OCabecalho.vue';
+// import Cabecalho from './components/OCabecalho.vue'
 // import Usuario from './components/OUsuario.vue';
-import ListaUsuario from './components/ListaUsuario.vue';
-</script> <!-- Toda lógica: JavaScript ou TypeScript -->
+// import ListaUsuario from './components/ListaUsuario.vue';
+</script>
+<!-- Toda lógica: JavaScript ou TypeScript -->
 
 <template>
   <!-- v-once: serve para renderizar uma única vez um elemento/componente -->
-  <NavBar v-once/>
+  <NavBar v-once />
 
   <header>
     <Cabecalho />
@@ -14,9 +15,11 @@ import ListaUsuario from './components/ListaUsuario.vue';
 
   <main>
     <!-- <Usuario /> -->
-    <ListaUsuario />
+    <!-- <ListaUsuario /> -->
+    <RouterView />
   </main>
-</template> <!-- Camada de visualização: HTML -->
+</template>
+<!-- Camada de visualização: HTML -->
 
 <style>
 * {
@@ -32,11 +35,12 @@ header {
 
 /* VueUse - useDark */
 [color-scheme='dark'] {
-    background-color: black;
-    color: white;
+  background-color: black;
+  color: white;
 }
 [color-scheme='light'] {
-    background-color: #eee;
-    color:#111;
+  background-color: #eee;
+  color: #111;
 }
-</style> <!-- Camada de estilo: CSS -->
+</style>
+<!-- Camada de estilo: CSS -->

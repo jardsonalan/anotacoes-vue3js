@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { 
-    /* ref, */
-    /* onMounted, */
-    /* reactive, */
-    /* computed, */
-    /* watch, */
-    /* watchEffect */
-} from 'vue';
-import Aviso from './OAviso.vue';
+import {
+  /* ref, */
+  /* onMounted, */
+  /* reactive, */
+  /* computed, */
+  /* watch, */
+  /* watchEffect */
+} from 'vue'
+import Aviso from './OAviso.vue'
 
 // Ref: específico para tipos primitivos: string, number, boolean
 // const nome = ref('Jardson Alan');
@@ -95,27 +95,27 @@ import Aviso from './OAviso.vue';
 // Props
 // 1° Forma
 defineProps({
-    pessoa: {
-        type: Object,
-        // type: String,
-        // type: Number,
-        // type: Boolean,
-        // type: Array,
-        // type: Object,
-        // type: Date,
-        // type: Function,
-        // type: Symbol,
-        required: true, // Informa que a prop é obrigatória
-        default: () => ({
-            id: 0,
-            first_name: '',
-            last_name: '',
-            avatar: '',
-            email: '',
-        }),
-    },
-    selecao: Boolean,
-});
+  pessoa: {
+    type: Object,
+    // type: String,
+    // type: Number,
+    // type: Boolean,
+    // type: Array,
+    // type: Object,
+    // type: Date,
+    // type: Function,
+    // type: Symbol,
+    required: true, // Informa que a prop é obrigatória
+    default: () => ({
+      id: 0,
+      first_name: '',
+      last_name: '',
+      avatar: '',
+      email: '',
+    }),
+  },
+  selecao: Boolean,
+})
 
 // 2° Forma
 // defineProps({
@@ -133,10 +133,10 @@ defineProps({
 // );
 
 // Emit
-const emit = defineEmits(['selecao']); // passa como argumento um Array com os nomes dos eventos personalizados que o componente pode emitir
-const enviaEmit = (id) => {
-    emit('selecao', id);
-};
+const emit = defineEmits(['selecao']) // passa como argumento um Array com os nomes dos eventos personalizados que o componente pode emitir
+const enviaEmit = id => {
+  emit('selecao', id)
+}
 </script>
 
 <!-- <template>
@@ -157,10 +157,10 @@ const enviaEmit = (id) => {
 </template> -->
 
 <template>
-    <!-- v-on: serve para disparar eventos -->
-    <!-- v-model: atualiza os dados e fornece o relacionamento entre o template (HTML) e a entrada de dados -->
-    <!-- v-bind: serve para fazer o bind de um atributo ou propriedade -->
-    <!-- <form class="formulario" v-on:submit.prevent>
+  <!-- v-on: serve para disparar eventos -->
+  <!-- v-model: atualiza os dados e fornece o relacionamento entre o template (HTML) e a entrada de dados -->
+  <!-- v-bind: serve para fazer o bind de um atributo ou propriedade -->
+  <!-- <form class="formulario" v-on:submit.prevent>
         <label for="codigoUsuario">Código Usuário:</label><br>
         <input 
             type="text"
@@ -169,71 +169,76 @@ const enviaEmit = (id) => {
             v-model="codigoUsuario"
         ><br>
     </form> -->
-    <!-- <button class="botao" v-bind:disabled="!habilitaBotao" v-on:click="pesquisaInformacoes()">Buscar</button> -->
-    <div class="perfil">
-        <img v-bind:src = "pessoa.avatar" alt="Perfil">
-        <strong>{{ pessoa.first_name + pessoa.last_name }}</strong>
-        <span>{{ pessoa.email }}</span>
-        <!-- Emit: 1° Forma -->
-        <!-- <button class="botao" v-on:click="$emit('selecao', pessoa.id)">Selecionar</button> -->
-        <!-- Emit: 2° Forma -->
-        <button class="botao" v-on:click="enviaEmit(pessoa.id)">{{ !selecao ? 'Selecionar' : 'Desmarcar' }}</button>
-    </div>
-    <Aviso />
+  <!-- <button class="botao" v-bind:disabled="!habilitaBotao" v-on:click="pesquisaInformacoes()">Buscar</button> -->
+  <div class="perfil">
+    <img v-bind:src="pessoa.avatar" alt="Perfil" />
+    <strong>{{ pessoa.first_name + pessoa.last_name }}</strong>
+    <span>{{ pessoa.email }}</span>
+    <!-- Emit: 1° Forma -->
+    <!-- <button class="botao" v-on:click="$emit('selecao', pessoa.id)">Selecionar</button> -->
+    <!-- Emit: 2° Forma -->
+    <button class="botao" v-on:click="enviaEmit(pessoa.id)">
+      {{ !selecao ? 'Selecionar' : 'Desmarcar' }}
+    </button>
+  </div>
+  <Aviso />
 </template>
 
 <style scoped>
-    /* * {
+/* * {
         font-size: 1.2em;
     } */
-    /* .formulario {
+/* .formulario {
         margin: 0 auto;
         padding: 5px;
         width: 400px;
         background-color: darkcyan;
     } */
 
-    #nome, #dataNascimento, #codigoUsuario {
-        margin: 10px 0;
-        width: 100%;
-    }
+#nome,
+#dataNascimento,
+#codigoUsuario {
+  margin: 10px 0;
+  width: 100%;
+}
 
-    .botao {
-        margin: 5px auto;
-        padding: 5px;
-        display: block;
-        background-color: darkcyan;
-        border-radius: 5px;
-        border-style: none;
-        cursor: pointer;
-    }
+.botao {
+  margin: 5px auto;
+  padding: 5px;
+  display: block;
+  background-color: darkcyan;
+  border-radius: 5px;
+  border-style: none;
+  cursor: pointer;
+}
 
-    button:disabled, button[disabled] {
-        border: 1px solid #999;
-        background-color: #ccc;
-        color: #666;
-        cursor: default;
-    }
+button:disabled,
+button[disabled] {
+  border: 1px solid #999;
+  background-color: #ccc;
+  color: #666;
+  cursor: default;
+}
 
-    /* .botao:hover {
+/* .botao:hover {
         background-color: rgb(182, 147, 147);
     } */
 
-    .perfil {
-        width: 150px;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        margin: 0 0 0 10%;
-        justify-content: center;
-        align-items: center;
-    }
+.perfil {
+  width: 150px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0 10%;
+  justify-content: center;
+  align-items: center;
+}
 
-    .perfil img {
-        border-radius: 15px;
-    }
+.perfil img {
+  border-radius: 15px;
+}
 
-    strong {
-        margin: 10px 0;
-    }
+strong {
+  margin: 10px 0;
+}
 </style>
