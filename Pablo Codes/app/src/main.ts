@@ -4,6 +4,8 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import NavBar from './components/NavBar.vue'
+// Estilo CSS: Global
+import '@/assets/css/style.css'
 
 const app = createApp(App)
 

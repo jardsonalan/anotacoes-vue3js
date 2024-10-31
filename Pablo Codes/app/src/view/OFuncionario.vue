@@ -35,6 +35,10 @@ watch(cargoSelecionado, (novoCargo) => {
 //     return `${data.value.first_name} ${data.value.last_name}`
 //   }
 // })
+
+// Class Bind
+const botaoLogin = ref('botao-login');
+const botao = ref('botao');
 </script>
 
 <template>
@@ -45,11 +49,19 @@ watch(cargoSelecionado, (novoCargo) => {
         <option v-for="c in cargos" :key="c" :value="c">{{ c }}</option>
     </select>
     <div>
-        <button v-on:click="storeLogin.logarUsuario(pessoa.first_name)">Logar</button>
+        <!-- Class Bind -->
+        <!-- <button v-on:click="storeLogin.logarUsuario(pessoa.first_name)" :class="[botao, botaoLogin]">Logar</button> -->
+
+        <!-- Propriedade: module -->
+        <button v-on:click="storeLogin.logarUsuario(pessoa.first_name)" :class="funcionario.botaoLogin">Logar</button>
     </div>
     <div>
         <button v-on:click="buscaCores()">Busca Cores</button>
     </div>
 </template>
 
-<style scoped></style>
+<style module="funcionario">
+.botaoLogin {
+    background-color: #57bf3e;
+}
+</style>

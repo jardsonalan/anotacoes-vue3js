@@ -170,7 +170,7 @@ const enviaEmit = id => {
         ><br>
     </form> -->
   <!-- <button class="botao" v-bind:disabled="!habilitaBotao" v-on:click="pesquisaInformacoes()">Buscar</button> -->
-  <div class="perfil">
+  <div :class="usuario.perfil">
     <img v-bind:src="pessoa.avatar" alt="Perfil" />
     <strong>{{ pessoa.first_name + pessoa.last_name }}</strong>
     <span>{{ pessoa.email }}</span>
@@ -184,7 +184,7 @@ const enviaEmit = id => {
   <Aviso />
 </template>
 
-<style scoped>
+<style module="usuario">
 /* * {
         font-size: 1.2em;
     } */
@@ -202,7 +202,8 @@ const enviaEmit = id => {
   width: 100%;
 }
 
-.botao {
+/* Componente Global dentro do scoped */
+/* :global(.botao) {
   margin: 5px auto;
   padding: 5px;
   display: block;
@@ -218,7 +219,7 @@ button[disabled] {
   background-color: #ccc;
   color: #666;
   cursor: default;
-}
+} */
 
 /* .botao:hover {
         background-color: rgb(182, 147, 147);

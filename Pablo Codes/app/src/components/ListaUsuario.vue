@@ -72,7 +72,7 @@ provide('aviso', aviso)
   <div v-if="carregando">
     <h3>Carregando...</h3>
   </div>
-  <div class="pessoas" v-else>
+  <div :class="lista.pessoas" v-else>
     <!-- v-for: serve para renderizar uma lista de itens em uma Array -->
     <!-- :key="": pode receber tanto o id, quanto o index -->
     <!-- <div class="perfil" v-for="pessoa in pessoas" :key="pessoa.id">
@@ -94,7 +94,7 @@ provide('aviso', aviso)
 
     <!-- Props - Recebendo valores de API -->
     <div v-for="pessoa in pessoas" :key="pessoa.id" v-if="!erro">
-      <button @click="redirecionaFuncionario(pessoa.id)">Ver funcionário</button>
+      <button @click="redirecionaFuncionario(pessoa.id)" class="botao">Ver funcionário</button>
       <Usuario
         v-bind:pessoa="pessoa"
         v-on:selecao="adicionaSelecao"
@@ -105,14 +105,19 @@ provide('aviso', aviso)
       {{ erro }}
     </div>
   </div>
-  <div class="selecionadas">
-    <span v-for="ps in pessoasSelecionadas" :key="ps.id" class="card">{{
+  <div :class="lista.selecionadas">
+    <span v-for="ps in pessoasSelecionadas" :key="ps.id" :class="lista.card">{{
       ps.first_name
     }}</span>
   </div>
 </template>
 
-<style scoped>
+<style module="lista">
+/* :deep() - pega todos os componentes que estiverem abaixo (filho, neto, bis-neto, etc) e aplica o estilo */
+:deep(.aviso) {
+  color: red;
+}
+
 .selecionadas {
   display: flex;
   flex-wrap: wrap;

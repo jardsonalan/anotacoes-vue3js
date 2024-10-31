@@ -21,7 +21,7 @@ import Cabecalho from './components/OCabecalho.vue'
 </template>
 <!-- Camada de visualização: HTML -->
 
-<style>
+<!-- <style>
 * {
   margin: 0;
   padding: 0;
@@ -42,5 +42,5 @@ header {
   background-color: #eee;
   color: #111;
 }
-</style>
+</style> -->
 <!-- Camada de estilo: CSS -->
