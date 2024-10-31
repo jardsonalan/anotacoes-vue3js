@@ -1,23 +1,27 @@
 <script setup lang="ts">
-import Cabecalho from './components/OCabecalho.vue'
-// import Usuario from './components/OUsuario.vue';
-// import ListaUsuario from './components/ListaUsuario.vue';
+import OVisualizacao from './components/OVisualizacao.vue';
+import OCabecalho from './components/OCabecalho.vue';
 </script>
 <!-- Toda lógica: JavaScript ou TypeScript -->
 
 <template>
-  <!-- v-once: serve para renderizar uma única vez um elemento/componente -->
-  <NavBar v-once />
-
-  <header>
-    <Cabecalho />
-  </header>
-
-  <main>
-    <!-- <Usuario /> -->
-    <!-- <ListaUsuario /> -->
+  <OVisualizacao>
+    <!-- 1° Forma - Slot Nomeado -->
+    <template #footer>
+      Rodapé página
+    </template>
+    <!-- 2° Forma - Slot Nomeado -->
+    <template v-slot:cabecalho>
+      <OCabecalho>
+        <!-- Scoped Slot -->
+        <template v-slot="{mensagem, funcao}">
+          <p class="titulo">{{ mensagem }}</p>
+          <button @click="funcao">Clique aqui</button>
+        </template>
+      </OCabecalho>
+    </template>
     <RouterView />
-  </main>
+  </OVisualizacao>
 </template>
 <!-- Camada de visualização: HTML -->
 

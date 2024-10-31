@@ -39,6 +39,12 @@ const tipoTela = computed(() => (isLargeScreen.value ? 'Desktop' : 'Mobile'))
 //     return `${data.value.first_name} ${data.value.last_name}`
 //   }
 // })
+
+// Scoped Slot
+const mensagem = 'Aprendendo slot';
+const mostraNome = () => {
+  alert('Aprendendo slot');
+};
 </script>
 
 <template>
@@ -55,6 +61,10 @@ const tipoTela = computed(() => (isLargeScreen.value ? 'Desktop' : 'Mobile'))
     <button v-on:click="toggleDark()">Muda tema</button>
     <button @click="toggle">Fullscreen</button>
   </UseFullscreen>
+  <div>
+    <!-- Scoped Slot -->
+    <slot :mensagem="mensagem" :funcao="mostraNome"></slot>
+  </div>
 </template>
 
 <style scoped>
