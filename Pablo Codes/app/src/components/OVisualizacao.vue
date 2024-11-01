@@ -6,8 +6,11 @@ import Cabecalho from '@/components/OCabecalho.vue';
 <!-- Toda lógica: JavaScript ou TypeScript -->
 
 <template>
-  <!-- v-once: serve para renderizar uma única vez um elemento/componente -->
-  <NavBar v-once />
+  <!-- Teleport -->
+  <!-- <Teleport to="body"> -->
+    <!-- v-once: serve para renderizar uma única vez um elemento/componente -->
+    <NavBar v-once />
+  <!-- </Teleport> -->
 
   <header>
     <!-- <Cabecalho /> -->

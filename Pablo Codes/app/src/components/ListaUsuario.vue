@@ -9,6 +9,7 @@ import Usuario from './OUsuario.vue'
 import { provide } from 'vue'
 import { useFetch } from '@/composables/fetch'
 import { useRouter } from 'vue-router'
+import Alerta from './Alerta.vue'
 
 const router = useRouter();
 
@@ -22,6 +23,8 @@ const {
 const idSelecao = ref([])
 // const pessoasSelecionadas = ref([]);
 const aviso = 'Em caso de dúvidas contate o suporte.'
+
+const mostraAlerta = ref(false);
 
 // const buscaInformacoes = async () => {
 //     const req = await fetch(`https://reqres.in/api/users?page=2`);
@@ -48,6 +51,7 @@ const adicionaSelecao = evt => {
     idSelecao.value = idSelecao.value.filter(x => x !== evt);
     return;
   }
+  mostraAlerta.value = true;
   idSelecao.value.push(evt)
 };
 const pessoasSelecionadas = computed(() => {
@@ -110,6 +114,12 @@ provide('aviso', aviso)
       ps.first_name
     }}</span>
   </div>
+  <!-- Teleport -->
+  <Teleport to="#alerta">
+    <transition>
+      <Alerta v-if="mostraAlerta"/>
+    </transition>
+  </Teleport>
 </template>
 
 <style module="lista">
@@ -154,5 +164,15 @@ strong {
 .pessoas {
   display: flex;
   flex-wrap: wrap;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity .5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
